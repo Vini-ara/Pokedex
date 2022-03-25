@@ -1,0 +1,41 @@
+:root {
+  --light-gray: hsl(0, 0%, 85%);
+  --dark-gray: #a3a3a3;
+  --dark-green: #4fc1a6;
+  --light-green: #65d4bd;
+  --dark-red: #f7786b;
+  --light-red: #f98c7f;
+  --dark-blue: #58aaf6;
+  --light-blue: #6fc1f9; 
+  --dark-yellow: #ffce4b; 
+  --light-yellow: #ffda5b; 
+  --dark-purple: #7c538c;
+  --light-purple: #9569a5;  
+  --dark-brown: #b1736c; 
+  --light-brown: #c1867f; 
+  --darkest-green: #729f3f; 
+  --light-pink: #fdb9e9; 
+  --violet: #f366b9;
+  --orange: #d56723; 
+  --dragon: #0645ad; 
+  --black: #000; 
+  --light-black: #707070; 
+  --metallic-gray: #9eb7b8; 
+  --stat1: #F34444; 
+  --stat2: #FF7F0F; 
+  --stat3: #FFDD57; 
+  --stat4: #A0E515; 
+  --stat5: #23CD5E; 
+  --stat6: #00C2B8; 
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+a {
+  text-decoration: none;  
+}

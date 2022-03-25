@@ -1,0 +1,42 @@
+/*---- Outside-ring ----*/
+
+.outerBall {
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  /*---- Transparent-part ----*/
+
+  .midBall {
+    border-radius: 50%;
+    width: 45.5%;
+    height: 45.5%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /*---- inside-part ----*/
+
+    .centerBall {
+      width: 60%;
+      height: 60%;
+
+      border-radius: 50%;
+      z-index: 999;
+    }
+  }
+
+  /*---- Middle-stripe ----*/
+
+  .rectangle {
+    height: 9.1%;
+    width: 100%;
+    position: absolute;
+    transition: all 2s ease-in-out;
+  }
+}
+

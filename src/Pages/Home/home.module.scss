@@ -1,0 +1,389 @@
+body {
+  overflow: hidden;
+}
+
+/*---- Content ----*/
+
+.content {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 0 5rem; 
+  position: relative;
+
+  background-color: transparent;
+
+  /*---- Content-header ----*/
+
+  .container{
+    width: 50%;
+    height: 50%; 
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .header {
+      height: fit-content;
+      display: flex;
+      align-items: center;
+
+      h1 {
+        font-size: 4.5rem;
+        text-align: center;
+        z-index: 99;
+        margin-right: 1rem;
+      }
+      .logo {
+        width: 100px;
+        height: 100px;
+  
+        z-index: 999;
+        transition: transform .5s ease-in-out;
+  
+        &:hover {
+          transform: rotate(1080deg);
+        }
+      }  
+    }
+
+    /*---- Pokedex-card ----*/
+
+    .card {
+      width: 15rem;
+      height: 5rem;
+    
+      padding-left: 2rem; 
+      margin-left: 1rem; 
+    
+      border-radius: 1.5rem; 
+    
+      color: white; 
+      background-color: var(--dark-green);
+      box-shadow: 0px 25px 25px -17.5px var(--dark-green);
+
+      display: grid;
+      align-items: center;
+    
+      font-size: 1.5rem;
+      font-weight: 500;
+    
+      position: relative; 
+      overflow: hidden;
+    
+      cursor: pointer;
+      transition: all ease .2s;
+
+      .goToText {
+        opacity: 0;
+        height: 0;
+        width: 0;
+        visibility: hidden;
+        color: white;
+        position: absolute;
+      }
+
+      /*---- Card-decorations ----*/
+    
+      .cardBg1 {
+        position: absolute;
+    
+        width: 4.5rem;
+        height: 4.5rem;
+        background-color: var(--light-green);
+    
+        transform: translateX(-50%) translateY(-50%);
+    
+        border-radius: 50%;
+        top: 0; 
+      }
+    
+      .cardBg2 {
+        position: absolute; 
+        
+        right: -6%;
+        top: 0; 
+        transform: translateY(-3%);
+        background-color: var(--light-green);
+          
+        width: 5.5rem;
+        height: 5.5rem;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    
+        z-index: 1;
+    
+        .circle1 {
+          width: 2.5rem;
+          height: 2.5rem;
+          border-radius: 50%; 
+          background-color: var(--dark-green);
+    
+          display: flex;
+          align-items: center;
+          justify-content: center;
+    
+          z-index: 2;
+    
+          .circle2 {
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            background-color: var(--light-green);
+    
+            z-index: 3;
+          }
+        }
+    
+        .rectangle {
+          width: 100%;
+          height: .5rem;
+    
+          position: absolute;
+          transition: transform ease 2s;
+          background-color: var(--dark-green);
+        }
+      }
+
+      &:hover {
+        position: absolute;
+        transform: translateX(-22.9%);
+        width: 100vw;
+        height: 100vh;
+        cursor: pointer;
+        margin: 0;
+        border-radius: 0; 
+
+        .cardLabel {
+          position: absolute;
+          top: 15%;
+          right: 22.5%;
+          font-size: 3rem;
+        }
+
+        .cardBg1 {
+          height: 40rem;
+          width: 40rem;
+        }
+
+        .cardBg2 {
+          top: 77.5%;
+          right: 0;
+          transform: scale(400%);
+
+          .rectangle {
+            transform: rotate(1440deg);
+          }
+        }
+        
+        .goToText {
+          visibility: visible;
+          opacity: 1;
+          
+          width: 3rem;
+          height: 3rem;
+          font-size: 3rem;
+
+          top: 50%;
+          right: 27.5%;
+          transform: translateY(-50%); 
+
+          animation: floating 1s infinite ease-in; 
+        }
+      }
+    }
+  }
+}
+
+/*---- Animation on ----*/
+
+.active {
+  .card {
+    animation: switch .3s .7s forwards ease !important;
+  }
+  .goToText { 
+    z-index: 999;
+    animation: blink .225s ease 4 forwards, goToText .95s ease forwards !important;
+  }
+
+  .cardLabel {
+    animation: cardLabel ease forwards .95s !important;
+  }
+  
+  .cardBg1 {
+    animation: cardBg1 .95s ease forwards, switch2 .3s .7s forwards ease !important;
+  }
+
+  .cardBg2 {
+    animation: cardBg2 .95s ease forwards, switch2 .3s .7s forwards ease !important;
+
+    .circle1 {
+      animation: switch .3s .7s forwards ease !important;
+    }
+    
+    .circle2 {
+      animation: switch2 .3s .7s forwards ease !important; 
+    }
+
+    .rectangle {
+      animation: switch .3s .7s forwards ease !important;
+    }
+  }
+
+  .header {
+    opacity: 0;
+    transition: opacity .05s ease !important;
+    position: fixed;
+    animation: header .95s .05s ease forwards !important;
+    z-index: 999;
+
+    h1 {
+      animation: Header-text .95s ease forwards !important;
+    }
+
+    .logo {
+      animation: logo .95s ease forwards !important;
+    }
+  }
+
+}
+
+/*---- Animation-Effects ----*/
+
+
+@keyframes floating {
+  0% {
+    transform: translateY(-50%);
+  }
+  50% {
+    transform: translateY(-80%); 
+  }
+  100% {
+    transform: translateY(-50%); 
+  }
+}
+
+@keyframes rotating {
+  0% {
+    transform: rotate(0deg) ;
+  }
+
+  50% {
+    transform: rotate(1080deg) ;
+  }
+
+  100% {
+    transform: rotate(0deg) ;
+  }
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1; 
+  }
+}
+
+@keyframes cardBg2 {
+  0% {
+    top: 77.5%;
+    right: 0;
+    transform: scale(400%);
+  }
+  100% {
+    right: 95%;
+    top: 50%; 
+    transform: scale(600%);
+  }
+}
+
+@keyframes cardBg1 {
+  0% {
+    left: 0; 
+  }
+
+  100% {
+    left: 100%; 
+  }
+}
+
+@keyframes header {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+    top: 0;
+    left: 0;
+    height: 5rem ;
+    width: 100%;
+    justify-content: center; 
+  }
+}
+
+@keyframes Header-text {
+  0% {
+    font-size: 4.5rem;
+  }
+  100% {
+    font-size: 2rem;
+  }
+}
+
+@keyframes logo {
+  0% {
+    width: 100px;
+    height: 100px;
+  }
+  100% {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@keyframes goToText {
+  0% {
+    right: 27.5%;
+  }
+  100% {
+    right: 50%; 
+  }
+}
+
+@keyframes cardLabel {
+  0%{
+    right: 22.5%;
+  }
+  100% {
+    right: 45%; 
+  }
+}
+
+@keyframes switch {
+  0% {
+    background-color: #4fc1a6;
+  }
+  100% {
+    background-color: white; 
+  }
+}
+
+@keyframes switch2 {
+  0% {
+    background-color: #65d4bd;
+  }
+  100% {
+    background-color: white; 
+  }
+}

@@ -1,0 +1,185 @@
+body {
+  overflow-y: scroll;
+}
+
+.header {
+  height: 5rem;
+  width: 100%;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: opacity .5s ease-in; 
+  
+  a {
+    color: black; 
+  }
+
+  .logo {
+    width: 50px;
+    height: 50px;
+    margin-left: 1rem;
+    transition: transform .5s ease-in-out;
+    transform: rotate(0deg);
+
+    &:hover {    
+      transform: rotate(1440deg);   
+    }
+  }
+
+  &.transition {
+    opacity: 0;
+  }
+}
+
+.container {
+  height: fit-content;
+  width: 100%;
+  padding: 10rem 12.5rem 5rem 12.5rem; 
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+  transition: opacity ease-in .5s;
+
+  &.transition {
+    opacity: 0;
+  }
+}
+
+.link {
+  text-decoration: none;
+  width: fit-content;
+  margin-bottom: 4rem;
+  transition: transform .5s ease; 
+  opacity: 0;
+  animation: fade-in .5s ease-in forwards;
+
+  &.right {
+    justify-self: flex-end;
+  }
+
+  &:hover {
+    transform: translateY(-7.5%); 
+  }
+}
+
+.bg1 {
+  position: fixed; 
+  left: -8%; 
+  top: 27.5%;  
+  z-index: -99;
+  opacity: 0;
+
+  transition: all 200ms ease;
+
+  animation: fade-in .5s ease-in forwards;
+  
+  &.transition {
+    animation-fill-mode: backwards;
+  }
+}
+
+.scrollButton {
+  width: 2.5rem;
+  height: 2.5rem;
+  position: fixed; 
+
+  bottom: .5rem; 
+  right: 5%;
+  transform: translateX(50%);
+
+  background-color: var(--light-black);
+  border-radius: 50%;
+
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding-bottom: .2rem;
+
+  opacity: 0;
+  cursor: none;
+
+  visibility: hidden;
+
+  transition: all .2s ease-in;
+
+  .btn {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  &.showing {
+    opacity: 0.7;
+    cursor: pointer;
+
+    visibility: visible;
+
+    bottom: 2rem; 
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+.filterBtnContainer {
+  position: absolute; 
+
+  top: 4rem; 
+  left: 12.5rem;
+
+  height: 3rem;
+  width: 3rem;
+
+  border-radius: 50%;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: all ease .2s;
+
+  &:hover {
+    background-color: var(--light-black);
+
+    color: white;
+  }
+
+  .filterBtn {
+    width: 2rem;
+    height: 2rem;
+  }
+} 
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes roll-out {
+  0% {
+    width: 0%;
+  } 
+  100% {
+    width: 25%;
+  } 
+}
+
+@media (max-width: 1080px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+  }
+}

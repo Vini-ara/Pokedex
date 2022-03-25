@@ -1,0 +1,113 @@
+.stats {
+  width: 40%;
+  height: fit-content;
+  padding: 1rem 2rem 0 2rem; 
+  
+  background-color: white;
+  border-radius: 2rem;
+
+  align-self: flex-end;
+
+  .statsTable {
+    text-align: left;
+
+    th {
+      padding: .5rem 1rem .5rem 0;
+      text-align: center;
+      width: 18%;
+    }
+
+    td {
+      padding: .5rem 0; 
+    }
+    .barCell {
+      height: 100%;
+      width: 100%;
+      padding: .5rem 0 .5rem 1rem;
+      
+      .statBar {
+        height: 1rem;
+        border-radius: 1rem;
+        width: 0;
+        &.bar1 {
+          animation: growing-bar-1 1s ease-out forwards;
+        }
+
+        &.bar2 {
+          animation: growing-bar-2 1s ease-out forwards .15s;
+        }
+
+        &.bar3 {
+          animation: growing-bar-3 1s ease-out forwards .30s;
+        }
+
+        &.bar4 {
+          animation: growing-bar-4 1s ease-out forwards .45s;
+        }
+
+        &.bar5 {
+          animation: growing-bar-5 1s ease-out forwards .60s;
+        }
+
+        &.bar6 {
+          animation: growing-bar-6 1s ease-out forwards .75s;
+        }
+      }
+    }
+  }
+}
+
+@keyframes growing-bar-1 {
+  0% {
+    width: 0%;
+  }
+
+  100%{
+    width: var(--stat-bar-width-0);
+  }
+}
+@keyframes growing-bar-2 {
+  0% {
+    width: 0%;
+  }
+
+  100%{
+    width: var(--stat-bar-width-1);
+  }
+}
+@keyframes growing-bar-3 {
+  0% {
+    width: 0%;
+  }
+
+  100%{
+    width: var(--stat-bar-width-2);
+  }
+}
+@keyframes growing-bar-4 {
+  0% {
+    width: 0%;
+  }
+
+  100%{
+    width: var(--stat-bar-width-3);
+  }
+}
+@keyframes growing-bar-5 {
+  0% {
+    width: 0%;
+  }
+
+  100%{
+    width: var(--stat-bar-width-4);
+  }
+}
+@keyframes growing-bar-6 {
+  0% {
+    width: 0%;
+  }
+
+  100%{
+    width: var(--stat-bar-width-5);
+  }
+}
