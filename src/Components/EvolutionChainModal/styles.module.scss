@@ -1,0 +1,142 @@
+.overlay {
+  position: fixed; 
+  height: 100vh;
+  width: 100vw;
+
+  top: 0;
+  left:0; 
+
+  z-index: 99;
+
+  background: rgba(112, 112, 112, 0.7);
+
+  display: flex;
+  justify-content: flex-end;
+  visibility: hidden;
+  opacity: 0; 
+
+  transition: all .4s; 
+
+  &.active {
+    visibility: visible;
+    opacity: 1;
+    
+    .modal {
+      transform: scaleY(1);
+    }
+  }
+  
+  .closeBtn {
+    margin-right: 2rem;
+    cursor: pointer; 
+  }
+
+  .modal {
+    height: 95%; 
+    width: 100%;  
+    
+    position: absolute; 
+    bottom: 0; 
+
+    transform: scale(0);
+    transform-origin: bottom;
+
+    transition: transform .3s ease-out;
+
+    border-radius: 5rem 5rem 0 0;
+
+    background: white;
+
+    display: grid; 
+    grid-template-rows: 1fr;
+    
+    .chainNode {
+      align-self: center;
+
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-template-rows: minmax(0, 15.25rem) minmax(0, 15.25rem);
+      gap: 1rem 0;
+      position: relative;
+       
+      .arrow {
+        position: absolute;
+        top: 50%; 
+        left: -10%; 
+        transform: translateY(-50%);
+
+        svg{
+          height: 5rem;
+          width: 5rem ;
+        }
+      }
+
+      .thirdNode {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        position: relative; 
+      }
+
+      .card {
+        align-self: start;
+        justify-self: center;
+        display: flex; 
+        flex-direction: column;
+        align-items:center;  
+
+        max-height: 15.25rem;
+        width: 10rem;
+        padding: 1rem 1rem .75rem 1rem; 
+
+        font-size: 1rem; 
+
+        border-radius: 1.5rem;
+        overflow-y: hidden;
+
+        transition: transform .5s ease, max-height .3s ease, box-shadow .5s ease;
+
+        &:hover {
+          max-height: 250rem;
+          z-index: 999;
+          transform: translateX(-.125rem) translateY(-.125rem);
+          box-shadow: 10px 10px 1rem rgba(0, 0, 0, 0.3);
+        }
+
+        .name {
+          text-transform: capitalize;
+          font-weight: bold;
+          font-size: 1.25rem;
+        }
+        
+        img {
+          width: 100%;
+          border-radius: 1.5rem;
+        }
+
+        .types {
+          align-self: flex-start;
+          display: flex;
+
+          p {
+            height: fit-content;
+            padding: 0.25rem .5rem; 
+            border-radius: 1rem;
+            font-size: .75rem;
+          }
+        }
+        
+        .evolutionInfo {
+          align-self: flex-start;
+          margin-top: .5rem; 
+          font-size: 0.75rem; 
+          text-transform: capitalize;
+          p {
+            padding: 0 .25rem;
+            border-radius: .5rem; 
+          }
+        }
+      }
+    }
+  }
+}

@@ -12,7 +12,6 @@ function PokemonContextProvider(props) {
   const [typeFilterOption, setTypeFilterOption] = useState(false)
 
   useEffect(() => {
-
     async function load() {
       const { list, next } = await initialFetch()
 
@@ -24,132 +23,49 @@ function PokemonContextProvider(props) {
   }, [])
 
   useEffect(() => {
-    if (!typeFilters[0]) {
-      async function load() {
-        const { list, next } = await initialFetch()
-
-        setPokemonList(list)
-        setNext(next)
-      }
-
-      if (generationFilters.length) {
-        let list = generationFilters.map(e => {
-          return generationFilterFetch(e)
-        })
-
-        Promise.all(list).then(e => {
-          let all = [];
-          e.forEach(a => all = [...all, ...a])
-
-          setPokemonList(all)
-        })
-        console.log(pokemonList)
-      } else {
-        load();
-      }
-
-      return
+    async function load() {
+      const { list, next } = await initialFetch()
+  
+      setPokemonList(list)
+      setNext(next)
     }
 
-    let list = typeFilters.map(e => {
-      return typeFilterFetch(e)
-    })
+    let list = typeFilterFetch(typeFilters)
 
-    let list2 = generationFilters.map(e => {
-      return generationFilterFetch(e)
-    })
+    let list2 = generationFilterFetch(generationFilters)
 
-    Promise.all([...list, ...list2]).then(e => {
-      let all = [];
-      e.forEach(a => all = [...all, ...a])
-
-      all.sort((a, b) => {
-        return a.id - b.id;
-      })
-
-      generationFilters.length ? setPokemonList(getDuplicates(all)) : setPokemonList(deleteDuplicates(all));
-    })
-  }, [typeFilters])
-
-  useEffect(() => {
-    if (!generationFilters[0]) {
-      async function load() {
-        const { list, next } = await initialFetch()
-
-        setPokemonList(list)
-        setNext(next)
+    Promise.all([list, list2]).then(e => {
+      if(!e[0] && !e[1]) {
+        return load()
       }
-
-      async function typeFetch() {
-        let list = typeFilters.map(e => {
-          return typeFilterFetch(e)
-        })
-
-        Promise.all(list).then(e => {
-          let all = [];
-          e.forEach(a => all = [...all, ...a])
-
-          setPokemonList(all)
-        })
-      }
-
-      typeFilters[0] ? typeFetch() : load();
-      return;
-    }
-
-    let list = typeFilters.map(e => {
-      return typeFilterFetch(e)
-    })
-
-    let list2 = generationFilters.map(e => {
-      return generationFilterFetch(e)
-    })
-
-    Promise.all([...list, ...list2]).then(e => {
-      let all = [];
-      e.forEach(a => all = [...all, ...a])
-
-      all.sort((a, b) => {
-        return a.id - b.id;
-      })
-
-      typeFilters.length ? setPokemonList(getDuplicates(all)) : setPokemonList(all);
-    })
-  }, [generationFilters])
-
-  useEffect(() => {
-    let list = pokemonList
-
-    let doubledPokemons = []
-
-    list.sort((a, b) => {
-      return a.id - b.id
-    })
-
-    if (typeFilters.length >= 2) {
-
-      list.forEach((e, index) => {
-        if (index === list.length - 1) return
-
-        if (typeFilterOption && e.name === list[index + 1].name) {
-          doubledPokemons = [...doubledPokemons, e]
-          return
+      
+      for(let i = 0; i < e.length; i++) {
+        if(e[i] === undefined) e.splice(i, 1)
+        else {
+          e[i].sort((a, b) => {
+            return a.id - b.id
+          });
         }
+      }
 
-        if (e.id === list[index + 1].id) list.splice(index, 1)
+      if(typeFilterOption)
+        e[0] = getDuplicates(e[0]);
+      else 
+        e[0] = deleteDuplicates(e[0]);
+
+      let all = [];
+
+      e.forEach(a => all = [...all, ...a])
+
+      all.sort((a, b) => {
+        return a.id - b.id;
       })
 
-      if (typeFilterOption) {
-        setPokemonList(doubledPokemons)
-      } else {
-        setPokemonList(list)
-      }
-    }
+      if(generationFilters.length && typeFilters.length) all = getDuplicates(all)
 
-    if (!typeFilterOption) {
-      typeFilterFetch(typeFilters)
-    }
-  }, [typeFilterOption])
+      setPokemonList(all)
+    })
+  }, [typeFilters, typeFilterOption, generationFilters])
 
   async function initialFetch() {
     const { data } = await api.get("/pokemon?limit=20&offset=0")
@@ -210,66 +126,78 @@ function PokemonContextProvider(props) {
     return list
   }
 
-  async function typeFilterFetch(filter) {
-    if (!typeFilters.length) return
+  async function typeFilterFetch(filters) {
+    if (!filters.length) return
 
-    const { data } = await api.get(`/type/${filter}`)
+    let list = [];
 
-    let pokemons = data.pokemon.map(node => {
-      const id = node.pokemon.url.split('/')
-      const PokemonIndex = id[id.length - 2]
+    for(let i = 0; i < filters.length; i++) {
+      const { data } = await api.get(`/type/${filters[i]}`)
 
-      const name = node.pokemon.name
+      let pokemons = data.pokemon.map(node => {
+        const id = node.pokemon.url.split('/')
+        const PokemonIndex = id[id.length - 2]
+  
+        const name = node.pokemon.name
+  
+        return { name: name, id: PokemonIndex }
+      });
 
-      return { name: name, id: PokemonIndex }
-    });
+      list = [...list, ...pokemons]
+    }
 
-    return pokemons;
+    return list;  
   }
 
   async function generationFilterFetch(filter) {
-    if (!generationFilters.length) return;
+    if (!filter.length) return;
 
-    const { data } = await api.get(`/generation/${filter}`);
+    let list = [];
 
-    let pokemons = data["pokemon_species"].map(node => {
-      const id = node.url.split('/')
-      const PokemonIndex = id[id.length - 2]
+    for(let i = 0; i < filter.length; i++) {
+      const { data } = await api.get(`/generation/${filter[i]}`);
 
-      const name = node.name
+      let pokemons = data["pokemon_species"].map(node => {
+        const id = node.url.split('/')
+        const PokemonIndex = id[id.length - 2]
+  
+        const name = node.name
+  
+        return { name: name, id: PokemonIndex }
+      });
+      
+      list = [...list, ...pokemons]
+    }
 
-      return { name: name, id: PokemonIndex }
-    });
-
-    return pokemons;
+    return list;
   }
 
-    function getDuplicates(list) {
-       let doubledPokemons = [];
+  function getDuplicates(list) {
+    let doubledPokemons = [];
 
-       list.forEach((e, index) => {
-       if(index === list.length - 1) return 
+    list.forEach((e, index) => {
+      if (index === list.length - 1) return
 
-       if(e.name === list[index + 1].name) {
-         doubledPokemons.push(e)
-         return 
-       }
-     })
-
-     return doubledPokemons;
-   }
+      if (e.name === list[index + 1].name) {
+        doubledPokemons.push(e)
+        return
+      }
+    })
+    return doubledPokemons;
+  }
 
   function deleteDuplicates(list) {
-    console.log(list)
-    let finishedList = list.map((e, index) => {
-      if (index === list.lenght - 1) return e;
+    let noDuplicates = list.map((e, index) => {
+      if (index === list.length - 1) return e;
 
       if (e.name !== list[index + 1].name) {
         return e;
       }
     })
+    
+    var filtered = noDuplicates.filter((x) => (x !== undefined));
 
-    return finishedList;
+    return filtered;
   }
 
   function typeFilterSet(filter, action) {
