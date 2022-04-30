@@ -49,6 +49,18 @@
 
     display: grid; 
     grid-template-rows: 1fr;
+
+    &.simple {
+      .chainNode {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .card {
+          max-height: fit-content;
+        }
+      }
+    }
     
     .chainNode {
       align-self: center;
@@ -58,6 +70,10 @@
       grid-template-rows: minmax(0, 15.25rem) minmax(0, 15.25rem);
       gap: 1rem 0;
       position: relative;
+
+      &.threeRows {
+        grid-template-rows: minmax(0, 15.25rem) minmax(0, 15.25rem) minmax(0, 15.25rem);
+      }
        
       .arrow {
         position: absolute;
@@ -92,9 +108,9 @@
         font-size: 1rem; 
 
         border-radius: 1.5rem;
-        overflow-y: hidden;
+        overflow: hidden;
 
-        transition: transform .5s ease, max-height .3s ease, box-shadow .5s ease;
+        transition: transform .5s ease, max-height .1s ease-in-out, box-shadow .5s ease;
 
         &:hover {
           max-height: 250rem;

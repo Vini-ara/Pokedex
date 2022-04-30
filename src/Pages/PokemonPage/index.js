@@ -4,7 +4,7 @@ import { useEffect ,useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import axios from "axios";
 
-import { BsChevronLeft, BsChevronRight } from "react-icons/bs"
+import { BsChevronLeft, BsChevronRight, BsPlus } from "react-icons/bs"
 
 import { EvolutionChain } from "../../Components/EvolutionChain/";
 
@@ -15,7 +15,6 @@ import { Header } from "../../Components/Header";
 import { PokemonStats } from "../../Components/Stats";
 
 function PokemonPage() {
-
   const [name, setName] = useState('')
   const [imgUrl, setImgUrl] = useState('')
   const [genera, setGenera] = useState('')
@@ -36,6 +35,8 @@ function PokemonPage() {
   const [stats, setStats] = useState([])
   const [evolutionChain, setEvolutionChain] = useState(null)
 
+  const [evolutionModal, setEvolutionModal] = useState(false)
+
   const [loading, setLoading] = useState(true)
   
   let { pokemon } = useParams();
@@ -54,7 +55,7 @@ function PokemonPage() {
   
   useEffect(()=>{
     setLoading(true)
-    
+
     axios.get(PokemonUrl)
       .then((response)=>{
         let data = response.data
@@ -176,6 +177,10 @@ function PokemonPage() {
     history.push(`/pokedex/${pokemonList[Number(id) - 2]?.name}`)
   }
 
+  function toggleModal() {
+    setEvolutionModal(!evolutionModal)
+  }
+
   return(
     loading ? (
       <div className={styles.loadingWrapper}>
@@ -186,7 +191,6 @@ function PokemonPage() {
         <Header color={`${types[0] === 'dark' ? "white" : ''}`} bgColor={Theme[types[0]]?.main} index={Number(id)}/>
         
         <section className={styles.container}  style={{backgroundColor: Theme[types[0]]?.main}}>
-
           {/* General info container */}
           <div className={styles.headers}>
             <h2 className={styles.name}> {name} <i>{genera}</i></h2>
@@ -254,7 +258,7 @@ function PokemonPage() {
             <PokemonStats stats={stats} />
 
             <div className={styles.evolutionChain}>
-              {evolutionChain ? (<EvolutionChain url={evolutionChain}/>) : (null)}
+              <EvolutionChain url={evolutionChain} evolutionModal={evolutionModal} modalToggle={toggleModal} />
             </div>
           </div>
         </section>

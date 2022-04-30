@@ -5,20 +5,18 @@ import { BsArrowRight, BsX } from "react-icons/bs";
 import Theme from "../../Themes/TypesThemes/TypesThemes";
 import { Link } from "react-router-dom";
 
-function EvolutionChainModal({nodes, toggle, active}) {
+function EvolutionChainModal({nodes, toggle, active, evolutions, isComplex}) {
   const [columns, setColumns] = useState(4)
-  const [evolutions, setEvolutions] = useState(2)
+  const [threeRows, setThreeRows] = useState(0)
 
   useEffect(() => {
     if(nodes[0][0]?.evolves_to <= 3) setColumns(0)
     else if(nodes[0][0]?.evolves_to <= 6) setColumns(2)
 
-    if(nodes[2]?.legth !== 0) setEvolutions(3)
-    console.log(nodes[2]?.length)
+    if(nodes[0][0]?.evolves_to % 3 === 0) setThreeRows(1)
   }, [nodes])
-    
-  console.log(columns)
-  console.log(evolutions)
+
+  // console.log(nodes[1].length)
 
   return (
     <>
@@ -26,7 +24,7 @@ function EvolutionChainModal({nodes, toggle, active}) {
         <div className={styles.closeBtn}>
           <BsX color="white" size="3rem" onClick={toggle}/>
         </div>
-        <div className={styles.modal} style={{
+        <div className={`${styles.modal} ${isComplex ? '' : styles.simple}`} style={{
               gridTemplateColumns: `repeat(${evolutions}, 1fr)`,
               color: nodes[0][0]?.species.types[0] === "dark" ? "white" : "black"
             }}
@@ -45,10 +43,10 @@ function EvolutionChainModal({nodes, toggle, active}) {
             </div>
           </div>
 
-          <div className={styles.chainNode} 
+          <div className={`${styles.chainNode} ${threeRows ? styles.threeRows : ''}`} 
             style={!columns ? {
-                gridTemplateColumns: "1fr", 
-                // gridTemplateRows: `repeat(${nodes[1]?.lenght}, 1fr)`
+                gridTemplateColumns: "1fr",
+                gridTemplateRows: `repeat(${nodes[1]?.length}, minmax(0, 15.25rem))`
               } : {
                 gridTemplateColumns: `repeat(${columns}, 1fr)`,
               }}
@@ -58,9 +56,10 @@ function EvolutionChainModal({nodes, toggle, active}) {
             </div>
             {nodes[1]?.map((e, index) => (
               <div className={styles.card}  
-                style={{background: Theme[e.species.types[0]]?.main, 
-                        color: `${e.species.types[0] === "dark" ? "white" : "black"}`,
-                      }} 
+                style={{
+                  background: Theme[e.species.types[0]]?.main, 
+                  color: `${e.species.types[0] === "dark" ? "white" : "black"}`,
+                }} 
               key={index}>
                 <Link to={`/pokedex/${e?.species?.name}`}>
                   <img src={e?.species?.img} alt={e?.species?.name} style={{background: Theme[e.species.types[0]]?.secondary}}/>
@@ -87,11 +86,12 @@ function EvolutionChainModal({nodes, toggle, active}) {
           </div>
 
 
-          {nodes[2] ? (
+          {evolutions > 2 ? (
             <div className={styles.chainNode} style={{
                 gridTemplateColumns: "1fr"
               }}>
-              {nodes[2] ? nodes[2]?.map(e => {
+
+              {nodes[2]?.map(e => {
                 return e.map((a, index) => (
                   <div className={styles.thirdNode}>
                     <div className={styles.arrow}>
@@ -124,10 +124,11 @@ function EvolutionChainModal({nodes, toggle, active}) {
                     </div>
                   </div>
                 ))}
-              )
-               : null}
+              )}
+
           </div>
         ) : null}
+
         </div>
       </section>
     </>
