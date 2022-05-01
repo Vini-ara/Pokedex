@@ -10,8 +10,8 @@ function PokemonStats({ stats }) {
       container.current.style.setProperty(`--stat-bar-width-${index}`, `${stat * 100 / 180}%`)
     })
 
-    console.log(getComputedStyle(container.current).getPropertyValue("--stat-bar-width-0"))
-  },[])
+    // console.log(getComputedStyle(container.current).getPropertyValue("--stat-bar-width-0"))
+  },[stats])
  
   return (
     <div className={styles.stats} ref={container}>

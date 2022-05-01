@@ -51,7 +51,7 @@ function FilterForm({ formActive, toggleForm }) {
   }
 
   function handleFormActivation(type) {  
-    type == "generation"? setGenerationFormActive(!generationFormActive) : setTypesFormActive(!typesFormActive)
+    type === "generation"? setGenerationFormActive(!generationFormActive) : setTypesFormActive(!typesFormActive)
   }
 
   return (

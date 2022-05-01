@@ -13,28 +13,28 @@ function getScrollPosition({element, useWindow}) {
     : { x: position.left, y: position.top }  
 }
 
-export function useScrollPosition(effect, deps, element, useWindow, wait) {
+export function useScrollPosition(effect, deps, element, useWindow) {
   const position = useRef(getScrollPosition({useWindow}))
 
-  let throttleTimeout = null
-
-  const callBack = () => {
-    const currPos = getScrollPosition({element, useWindow})
-    effect({ prevPos: position.current, currPos})
-    position.current = currPos
-    throttleTimeout = null
-  }
-
   useLayoutEffect(() => {
+    let throttleTimeout = null;
+
+    const callBack = () => {
+      const currPos = getScrollPosition({element, useWindow})
+      effect({ prevPos: position.current, currPos})
+      position.current = currPos
+      throttleTimeout = null
+    }
+
     const handleScroll = () => {   
       if (throttleTimeout === null) {
         throttleTimeout = setTimeout(callBack, 100)
-      } 
+      }
     }
 
     window.addEventListener('scroll', handleScroll)
 
     return () => window.removeEventListener('scroll', handleScroll)
   
-  }, deps)
+  })
 }

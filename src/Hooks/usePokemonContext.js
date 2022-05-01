@@ -190,9 +190,10 @@ function PokemonContextProvider(props) {
     let noDuplicates = list.map((e, index) => {
       if (index === list.length - 1) return e;
 
-      if (e.name !== list[index + 1].name) {
+      if (e.name !== list[index + 1].name) 
         return e;
-      }
+      
+      return undefined
     })
     
     var filtered = noDuplicates.filter((x) => (x !== undefined));

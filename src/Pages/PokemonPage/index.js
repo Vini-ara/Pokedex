@@ -4,7 +4,7 @@ import { useEffect ,useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import axios from "axios";
 
-import { BsChevronLeft, BsChevronRight, BsPlus } from "react-icons/bs"
+import { BsChevronLeft, BsChevronRight} from "react-icons/bs"
 
 import { EvolutionChain } from "../../Components/EvolutionChain/";
 
