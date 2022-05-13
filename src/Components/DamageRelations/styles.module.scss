@@ -1,0 +1,53 @@
+.wrapper {
+    max-width: 70%;
+
+    .relation {
+      & + .relation {
+        margin-top: 1rem;
+      }
+
+      .type {
+        display: flex;
+        gap: 1rem; 
+        flex-wrap:wrap; 
+
+        margin-top: 1rem;
+
+        .typeCard {
+          display: flex;
+
+          &:hover {
+            filter: brightness(0.9);
+          }
+
+          p {
+
+            height: fit-content;
+            padding: 0.5rem 1rem; 
+            position: relative;
+            
+            border-radius: 1rem;
+            cursor: pointer; 
+            
+            z-index: 10; 
+              
+          }
+
+          span {
+            background-color: lightgray;
+
+            border-radius: 0 1rem 1rem 0;
+            padding: .5rem .3rem;
+
+            text-align: end;
+            
+            margin-left: -.75rem;
+
+            width: 2rem;
+            z-index: -10;
+           }
+        }
+
+      }
+  }
+}

@@ -32,7 +32,7 @@ const typeRelations = {
     noDamageTo: ["steel"]
   },
   ground: {
-    doubleDamageFrom: ["rock", "electric", "ice"],
+    doubleDamageFrom: ["grass", "water", "ice"],
     doubleDamageTo: ["poison", "rock", "steel", "fire", "electric"],
     halfDamageFrom: ["poison", "rock"],
     halfDamageTo: ["bug", "grass"],
@@ -145,4 +145,4 @@ const typeRelations = {
   }
 }
 
-export default typeRelations
+export { typeRelations };

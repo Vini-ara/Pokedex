@@ -16,8 +16,6 @@ function EvolutionChainModal({nodes, toggle, active, evolutions, isComplex}) {
     if(nodes[0][0]?.evolves_to % 3 === 0) setThreeRows(1)
   }, [nodes])
 
-  // console.log(nodes[1].length)
-
   return (
     <>
       <section className={`${styles.overlay} ${active ? styles.active : ''}`}>
@@ -74,11 +72,10 @@ function EvolutionChainModal({nodes, toggle, active, evolutions, isComplex}) {
                 <div className={styles.evolutionInfo}>
                   <p>trigger: {e.evolution_details.trigger}</p>
                   {Object.keys(e.evolution_details).map((a, index) => (
-                    a !== "trigger" ? 
-                    (<p style={!index % 2 ? {background: Theme[e.species.types[0]]?.secondary} : null}>
+                    a !== "trigger" && 
+                    <p key={index} style={!index % 2 ? {background: Theme[e.species.types[0]]?.secondary} : null}>
                         {a.replace(/_/g, " ")}: {e.evolution_details[a]}
-                    </p>) :
-                      null
+                    </p>
                   ))}
                 </div>
               </div>
@@ -86,14 +83,14 @@ function EvolutionChainModal({nodes, toggle, active, evolutions, isComplex}) {
           </div>
 
 
-          {evolutions > 2 ? (
+          {evolutions > 2 && 
             <div className={styles.chainNode} style={{
                 gridTemplateColumns: "1fr"
               }}>
 
               {nodes[2]?.map(e => {
                 return e.map((a, index) => (
-                  <div className={styles.thirdNode}>
+                  <div className={styles.thirdNode} key={index}>
                     <div className={styles.arrow}>
                       <BsArrowRight /> 
                     </div>
@@ -114,11 +111,10 @@ function EvolutionChainModal({nodes, toggle, active, evolutions, isComplex}) {
                       <div className={styles.evolutionInfo}>
                         <p>trigger: {a.evolution_details.trigger}</p>
                         {Object.keys(a.evolution_details).map((j, index) => (
-                          j !== "trigger" ? 
-                          (<p style={!index % 2 ? {background: Theme[a.species.types[0]]?.secondary} : null}>
+                          j !== "trigger" &&
+                          <p key={index} style={!index % 2 ? {background: Theme[a.species.types[0]]?.secondary} : null}>
                               {j.replace(/_/g, " ")}: {a.evolution_details[j]}
-                          </p>) :
-                            null
+                          </p>
                         ))}
                       </div>
                     </div>
@@ -126,8 +122,7 @@ function EvolutionChainModal({nodes, toggle, active, evolutions, isComplex}) {
                 ))}
               )}
 
-          </div>
-        ) : null}
+          </div>}
 
         </div>
       </section>

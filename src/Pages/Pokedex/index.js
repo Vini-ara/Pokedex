@@ -80,7 +80,6 @@ function Pokedex() {
 
   function handleCardClick() {
     setTransition(true)
-    console.log(windowScroll)
     cardClick(windowScroll)
   }
 
@@ -103,7 +102,6 @@ function Pokedex() {
       <Header clickFunction={headerClick}/>
 
       <section className={styles.container}> 
-
         <div className={`${styles.bg1} ${transition ? styles.transition : ''}`} ref={ball} style={{transform: `rotate(${-windowScroll/10}deg)`}}>
           <PokeballBg size="33rem" MainColor="#707070" subColor="#fff"/>
         </div>

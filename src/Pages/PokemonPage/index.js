@@ -1,5 +1,5 @@
 import { usePokedexContext } from "../../Hooks/usePokemonContext";
-import { useEffect ,useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useHistory, useParams } from "react-router-dom";
 import axios from "axios";
@@ -7,6 +7,7 @@ import axios from "axios";
 import { BsChevronLeft, BsChevronRight} from "react-icons/bs"
 
 import { EvolutionChain } from "../../Components/EvolutionChain/";
+import { DamageRelations } from "../../Components/DamageRelations";
 
 import Theme from "../../Themes/TypesThemes/TypesThemes";
 import styles from "./pokemonPage.module.scss";
@@ -200,6 +201,10 @@ function PokemonPage() {
               {types.map((type, index)=>{
                 return <p style={{backgroundColor: Theme[type]?.secondary}} key={index} onClick={handleTypeClick}>{type}</p>
               })}
+            </div>
+
+            <div >
+              <DamageRelations types={types} handleTypeClick={handleTypeClick}/>
             </div>
 
             <div className={styles.flavourText}>

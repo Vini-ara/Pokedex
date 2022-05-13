@@ -18,7 +18,6 @@ function Header({clickFunction, color, bgColor, index}) {
       const row = Math.floor(index / 2) * 320
       const pos = 240 + row
       cardClick(-pos) 
-      console.log(pos)   
     } 
 
     history.push("/pokedex")
