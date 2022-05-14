@@ -6,7 +6,7 @@ import { BsArrowLeft } from 'react-icons/bs';
 import { usePokedexContext } from '../../Hooks/usePokemonContext';
 
 
-function Header({clickFunction, color, bgColor, index}) {
+function Header({clickFunction, color, hasBorder, bgColor, index, isShowing}) {
   const { cardPosition, cardClick } = usePokedexContext()
 
   const history = useHistory()
@@ -24,13 +24,13 @@ function Header({clickFunction, color, bgColor, index}) {
   }
 
   return(
-    <header className={styles.header} style={{backgroundColor: bgColor}}>
+    <header className={`${styles.header} ${hasBorder ? styles.border : ''}`} style={{backgroundColor: bgColor, maxHeight: isShowing ? '5rem' : '0rem'}}>
       <Link to="/" >
-        <h1 onClick={clickFunction ? clickFunction : null} style={{color: `${color}`}}>
+        <h1 onClick={clickFunction ? clickFunction : null} style={{color: `${color}`, transform: isShowing ? 'translateY(0)' : 'translateY(-5rem)'}}>
           Pokedex
         </h1>
       </Link>
-      <img src={Icon} alt="logo" className={styles.logo}/>
+      <img src={Icon} alt="logo" className={styles.logo} style={{transform: isShowing ? 'translateY(0)' : 'translateY(-5rem)'}}/>
 
       { path.length >= 3 && <BsArrowLeft className={styles.backButton} onClick={handleBackButtonClick}/>}
     </header>

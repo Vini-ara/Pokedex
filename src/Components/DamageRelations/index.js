@@ -88,9 +88,9 @@ function DamageRelations({types, handleTypeClick}) {
         <h4>Weak Against:</h4>
         <div className={styles.type}>
           {weak.map((rel, index) => (
-            <div className={styles.typeCard}>
+            <div className={styles.typeCard} key={index} onClick={() => handleTypeClick(rel.type)}>
               <p style={{backgroundColor: Theme[rel.type]?.secondary}} key={index} onClick={handleTypeClick}>{rel.type}</p>
-              <span>{rel.multiplier}</span>
+              <span style={{backgroundColor: `${rel.multiplier === 2 ? 'lightgray' : '#fcbe40'}`}}>{rel.multiplier}<sub>&times;</sub></span>
             </div>
           ))}
         </div>
@@ -100,12 +100,13 @@ function DamageRelations({types, handleTypeClick}) {
         <h4>Resistent Against:</h4>
         <div className={styles.type}>
           {resistent.map((rel, index) => (
-            <div className={styles.typeCard}>
-              <p style={{backgroundColor: Theme[rel.type]?.secondary}} key={index} onClick={handleTypeClick}>
+            <div className={styles.typeCard} key={index} onClick={() => handleTypeClick(rel.type)}>
+              <p style={{backgroundColor: Theme[rel.type]?.secondary}} key={index}>
                 {rel.type}
               </p>
-              <span>
+              <span style={{backgroundColor: `${rel.multiplier === 0.5 ? 'lightgray' : '#fcbe40'}`}}>
                 {rel.multiplier === 0.5 ? <>&frac12;</> : <>&frac14;</>}
+                <sub>&times;</sub>
               </span>
             </div>
           ))}

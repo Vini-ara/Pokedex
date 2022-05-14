@@ -6,7 +6,6 @@
   top: 0;
   left:0; 
 
-  z-index: 99;
 
   background: rgba(112, 112, 112, 0.7);
 
@@ -14,12 +13,14 @@
   justify-content: flex-end;
   visibility: hidden;
   opacity: 0; 
+    z-index: 99;
 
   transition: all .4s; 
 
   &.active {
     visibility: visible;
     opacity: 1;
+    z-index: 99;
     
     .modal {
       transform: scaleY(1);

@@ -1,5 +1,17 @@
 .wrapper {
   overflow-y: hidden;
+  z-index: 1;
+}
+
+.loadingWrapper {
+  height: 100vh;
+  width: 100%;
+
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .container {
@@ -7,9 +19,13 @@
   height: calc(100vh - 5rem);
   position: relative;
 
-  padding: 1rem 7.5rem 6rem; 
+  padding: 0rem 7.5rem 0rem; 
+
+  margin-top: 5rem;
 
   opacity: 0;
+
+  z-index: 1;
 
   animation: fade-in .5s ease-in forwards;
 
@@ -179,6 +195,8 @@
 
     transition: all .3s;
 
+    z-index: 10;
+
     &:hover {
        box-shadow: 0px 10px 2rem rgba(0, 0, 0, 0.3);
        // transform: translateX(-0px) translateY(-10px);
@@ -219,14 +237,6 @@
   }
 }
 
-.loadingWrapper {
-  height: 100vh;
-  width: 100%;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
 @keyframes fade-in {
   0% {

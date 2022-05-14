@@ -13,7 +13,7 @@
 
   opacity: 0;
 
-  animation: fade-in 1s ease-in forwards; 
+  animation: fade-in 1s ease-in forwards;
 
   /*---- Loading-Pokeballs ----*/
 
@@ -68,7 +68,7 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translateX(-47.5%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%); 
     z-index: 999;
   }
 
@@ -78,8 +78,9 @@
     background-color: white;
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translateY(-50%) scaleX(1.2);
     z-index: -1;
+    transform-origin: center center;
     animation: rotating 1.5s ease-in-out infinite;
   }
 }
@@ -100,11 +101,11 @@
 
 @keyframes rotating {
   0% {
-    transform: rotate(0deg) ;
+    transform: rotate(0deg) translateY(-50%) scaleX(1.2);
   }
 
   100% {
-    transform: rotate(1080deg) ;
+    transform: rotate(1080deg) translateY(-50%) scaleX(1.2);
   }
 }
 

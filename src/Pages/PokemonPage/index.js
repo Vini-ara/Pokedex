@@ -51,7 +51,7 @@ function PokemonPage() {
   } = usePokedexContext()
   
   const history = useHistory()
-  
+
   const PokemonUrl = `https://pokeapi.co/api/v2/pokemon/${pokemon}/`
   
   useEffect(()=>{
@@ -123,59 +123,77 @@ function PokemonPage() {
             setLoading(false)
           })
       })  
-  }, [PokemonUrl])
+
+    document.title = `${name} | Pokedexer`
+  }, [PokemonUrl, name])
 
   function filterFlavorText(array) {
-    for(let i = 0; i <= array.length - 1; i++) {
-      if(array[i].language.name !== "en") {
-        array.splice(i, 1)
-      }
+    let validTexts = []
+
+    for(let {flavor_text, language: {name}, version: {name: versionName}} of array) {
+      if(name === 'en') validTexts.push({flavor_text, versionName})
     }
-    for(let i = 0; i <= array.length - 1; i++) {
-      if(array[i].language.name !== "en") {
-        array.splice(i, 1)
-      }
-    }
-    const randomIndex = Math.random() * (array.length - 1)
     
-    return array[Math.floor(randomIndex)]
+    const randomIndex = Math.random() * (validTexts.length - 1)
+    
+    return validTexts[Math.floor(randomIndex)]
   }
 
-  function handleTypeClick(e) {
+  function handleTypeClick(type) {
     typeFilters.forEach(filter => {
       typeFilterSet(filter, false)
     })
 
-    typeFilterSet(e.target.innerText, true)
+    typeFilterSet(type, true)
     cardClick(0)
     
     history.push("/pokedex")
   }
 
   async function NextPokemon() {
-    const isOnList = pokemonList.length > Number(id)
+    if(typeFilters[0]) {
+      for(let [i, {name: n}] of pokemonList.entries()) {
+        if(name === n) {
+          if(i === pokemonList.length - 1) return
 
-    if(!isOnList) {  
-      const ratio = id / 20 + 1
-      const list = await redoList(ratio)
+          return history.push(`/pokedex/${pokemonList[i + 1]?.name}`)
+        }
+      }
+    } else {
+      const isOnList = pokemonList.length > Number(id)
 
-      return history.push(`/pokedex/${list[Number(id)]?.name}`)
+      if(!isOnList) {  
+        const ratio = id / 20 + 1
+        const list = await redoList(ratio)
+
+        return history.push(`/pokedex/${list[Number(id)]?.name}`)
+      }
+
+      history.push(`/pokedex/${pokemonList[Number(id)]?.name}`)
     }
-
-    history.push(`/pokedex/${pokemonList[Number(id)]?.name}`)
   }
 
   async function PrevPokemon() {
-    const isOnList = pokemonList.length >= Number(id)
+    if(typeFilters[0]) {
+      for(let [i, {name: n}] of pokemonList.entries()) {
+        if(name === n) {
+          if(i === 0) return
 
-    if(!isOnList) {  
-      const ratio = id / 20 + 1
-      const list = await redoList(ratio)
+          return history.push(`/pokedex/${pokemonList[i - 1]?.name}`)
+        }
+      }
+    } else {
+      const isOnList = pokemonList.length >= Number(id)
 
-      return history.push(`/pokedex/${list[Number(id) - 1]?.name}`)
+      if(!isOnList) {  
+        const ratio = id / 20 + 1
+        const list = await redoList(ratio)
+
+        return history.push(`/pokedex/${list[Number(id) - 1 >= 0 ? Number(id) - 1 : 0]?.name}`)
+      }
+
+      history.push(`/pokedex/${pokemonList[Number(id) - 2 >= 0 ? Number(id) - 2 : 0]?.name}`)
     }
-
-    history.push(`/pokedex/${pokemonList[Number(id) - 2]?.name}`)
   }
 
   function toggleModal() {
@@ -189,7 +207,7 @@ function PokemonPage() {
       </div>
       ) : (
       <div className={styles.wrapper}>
-        <Header color={`${types[0] === 'dark' ? "white" : ''}`} bgColor={Theme[types[0]]?.main} index={Number(id)}/>
+        <Header color={`${types[0] === 'dark' ? "white" : ''}`} bgColor={Theme[types[0]]?.main} index={Number(id)} isShowing={true}/>
         
         <section className={styles.container}  style={{backgroundColor: Theme[types[0]]?.main}}>
           {/* General info container */}
@@ -199,16 +217,16 @@ function PokemonPage() {
 
             <div className={styles.types}>
               {types.map((type, index)=>{
-                return <p style={{backgroundColor: Theme[type]?.secondary}} key={index} onClick={handleTypeClick}>{type}</p>
+                return <p style={{backgroundColor: Theme[type]?.secondary}} key={index} onClick={() => handleTypeClick(type)}>{type}</p>
               })}
             </div>
 
-            <div >
+            <div className={styles.damageRelations}>
               <DamageRelations types={types} handleTypeClick={handleTypeClick}/>
             </div>
 
             <div className={styles.flavourText}>
-              <p>"{filterFlavorText(flavorText)?.flavor_text}" <i> - {filterFlavorText(flavorText)?.version?.name}</i></p>
+              <p>"{filterFlavorText(flavorText).flavor_text}" <i> - {filterFlavorText(flavorText).versionName}</i></p>
             </div>
 
             <table className={styles.subInfo}>
@@ -254,7 +272,6 @@ function PokemonPage() {
 
           {/* Specific info container */}
           <div className={styles.content}>
-
             <img className={styles.pokemon} src={imgUrl} alt="pokemon" />
 
             <BsChevronLeft className={styles.prevPokemon} onClick={PrevPokemon}/>

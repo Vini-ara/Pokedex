@@ -26,6 +26,8 @@ function Pokedex() {
   const [windowScroll, setWindowScroll] = useState(0)
   const [transition, setTransition] = useState(false)
   const [showBtn, setShowBtn] = useState(false)
+  const [showHeader, setShowHeader] = useState(true)
+  const [headerHasBorder, setHeaderHasBorder] = useState(false)
   const [formActive, setFormActive] = useState(false)
 
   const observer = useRef()
@@ -47,11 +49,15 @@ function Pokedex() {
   },[cardPosition])
 
   useEffect(()=>{
-    if(windowScroll === 0) setShowBtn(false)
+    if(window.scrollY === 0) {
+      setShowBtn(false)
+      setHeaderHasBorder(false)
+    } else {
+      setHeaderHasBorder(true)
+    }
   },[windowScroll])
     
   const lastCard = useCallback((node) => {
-    
     if(observer.current) observer.current.disconnect()
     
     observer.current = new IntersectionObserver(entries => {
@@ -66,11 +72,16 @@ function Pokedex() {
   },[next, nextFetch])
   
   useScrollPosition(({ prevPos, currPos })=>{
-    const show = currPos.y > prevPos.y
-    if(show !== showBtn) setShowBtn(show)
+    const isGoingUp = currPos.y > prevPos.y
+    if(isGoingUp !== showBtn) {
+      setShowHeader(isGoingUp)
+      setShowBtn(isGoingUp)
+    }
+
+    if(!isGoingUp && showHeader) setShowHeader(false)
 
     const degrees = currPos.y
-    setWindowScroll(degrees) 
+    setWindowScroll(degrees > 0 ? 0 : degrees) 
   }, [showBtn])
   
   function headerClick() {
@@ -99,9 +110,9 @@ function Pokedex() {
   
   return (
     <div className={styles.wrapper}>
-      <Header clickFunction={headerClick}/>
+      <Header clickFunction={headerClick} hasBorder={headerHasBorder} isShowing={showHeader}/>
 
-      <section className={styles.container}> 
+      <section className={styles.container}  > 
         <div className={`${styles.bg1} ${transition ? styles.transition : ''}`} ref={ball} style={{transform: `rotate(${-windowScroll/10}deg)`}}>
           <PokeballBg size="33rem" MainColor="#707070" subColor="#fff"/>
         </div>

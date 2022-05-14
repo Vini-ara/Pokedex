@@ -12,9 +12,11 @@
   visibility: hidden;
   transition: all ease 0.5s;
 
+
   &.formActive {
     opacity: 1;
     visibility: visible;
+    z-index: 2;
 
     .filterContainer {
       width: 25%;

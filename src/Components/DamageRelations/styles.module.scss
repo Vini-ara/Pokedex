@@ -15,39 +15,40 @@
 
         .typeCard {
           display: flex;
+          cursor: pointer; 
 
           &:hover {
             filter: brightness(0.9);
           }
 
           p {
-
             height: fit-content;
             padding: 0.5rem 1rem; 
             position: relative;
             
             border-radius: 1rem;
-            cursor: pointer; 
             
             z-index: 10; 
-              
           }
 
           span {
-            background-color: lightgray;
+            background-color: #fcbe40;
+            user-select: none;
+
+            padding-top: .5rem;
+            padding-right: .2rem;
 
             border-radius: 0 1rem 1rem 0;
-            padding: .5rem .3rem;
 
             text-align: end;
+            align-content: center;
             
-            margin-left: -.75rem;
+            margin-left: -1.5rem;
 
-            width: 2rem;
+            width: 3rem;
             z-index: -10;
            }
         }
-
       }
   }
 }
