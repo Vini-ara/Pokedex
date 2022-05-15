@@ -17,7 +17,7 @@ const PokemonCard = React.forwardRef((props, ref)=>{
   const [name, setName] = useState('')
   const [pokeballSize, setPokeballSize] = useState('17rem');
 
-  const {height, width} = useWindowDimensions(); 
+  const { width } = useWindowDimensions(); 
 
   const url = `https://pokeapi.co/api/v2/pokemon/${props?.name}`
   
