@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
 import axios from 'axios';
-import { useEffect, useState } from 'react';
 
 import PokeballBg from '../PokeballBg';
 import Theme from '../../Themes/TypesThemes/TypesThemes';
+
+import { useWindowDimensions } from '../../Hooks/useWindowDimensions'
 
 import styles from './pokemoncard.module.scss';
 
@@ -13,6 +15,9 @@ const PokemonCard = React.forwardRef((props, ref)=>{
   const [types, setTypes] = useState([])
   const [imageUrl, setImageUrl] = useState('')
   const [name, setName] = useState('')
+  const [pokeballSize, setPokeballSize] = useState('17rem');
+
+  const {height, width} = useWindowDimensions(); 
 
   const url = `https://pokeapi.co/api/v2/pokemon/${props?.name}`
   
@@ -41,11 +46,16 @@ const PokemonCard = React.forwardRef((props, ref)=>{
       })
   },[url]);
 
+
+  useEffect(() => {
+    setPokeballSize(width <= 644 ? '10rem' : '17rem');
+  }, [width]);
+
+
   return(
     <>
       { !isLoading ? (
         <div className={styles.card} ref={ref} style={{background: Theme[types[0]]?.main, boxShadow: `0px 25px 25px -17.5px ${Theme[types[0]]?.main}`}}>
-
           <img src={imageUrl} alt="Pokemon" />
 
           <h3 className={styles.header}>{name}</h3>
@@ -54,7 +64,7 @@ const PokemonCard = React.forwardRef((props, ref)=>{
             : (<span className={styles.types} key={index} style={{background: Theme[types[0]]?.secondary}}>{type}</span>))
           })}
           <div className={styles.background}>
-            <PokeballBg size="17rem" hover={true} MainColor={Theme[types[0]]?.secondary} subColor={Theme[types[0]]?.main}/>
+            <PokeballBg size={pokeballSize} hover={true} MainColor={Theme[types[0]]?.secondary} subColor={Theme[types[0]]?.main}/>
           </div>
         </div>
       ) : (
@@ -82,7 +92,6 @@ const PokemonCard = React.forwardRef((props, ref)=>{
         </div>
       ) }
     </>
-
   );
 })
 

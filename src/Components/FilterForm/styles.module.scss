@@ -195,3 +195,36 @@
     }
   }
 }
+
+@media (max-width: 1024px) {
+  .filterOverlay {
+    &.formActive{
+      .filterContainer {
+        width: 35%;
+      }
+    }
+  }
+} 
+
+@media (max-width: 768px) {
+  .filterOverlay {
+    &.formActive{
+      .filterContainer {
+        width: 50%;
+      }
+    }
+  }
+} 
+
+@media (max-width: 425px) {
+  .filterOverlay {
+    .filterContainer {
+      border-radius: 0;
+    }
+    &.formActive{
+      .filterContainer {
+        width: 100%;
+      }
+    }
+  }
+} 

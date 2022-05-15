@@ -125,30 +125,32 @@ function Pokedex() {
           <BsList className={styles.filterBtn} />
         </div>
         
-        {pokemonList[0] ? 
-          (pokemonList?.map((pokemon, index)=>{
-            if(pokemonList.length === index + 1){
-              return (
-                <Link 
-                  to={`${url}/${pokemon.name}`} 
-                  className={`${styles.link} ${index%2 !== 0 ? styles.right : ''} `} 
-                  key={index}>
-                  <PokemonCard name={pokemon.name} key={index} ref={lastCard} />
-                </Link> 
-              )} else {
-              return(
-                <Link 
-                  to={`${url}/${pokemon.name}`} 
-                  className={`${styles.link} ${index%2 !== 0 ? styles.right : ''} `} 
-                  key={index} 
-                  onClick={handleCardClick}>
-                  <PokemonCard name={pokemon.name} key={index} />
-                </Link> 
-              )}
-          }))
-          : 
-          <h2>No match results</h2>
-        }
+        <div className={styles.pokemonContainer}> 
+          {pokemonList[0] ? 
+            (pokemonList?.map((pokemon, index)=>{
+              if(pokemonList.length === index + 1){
+                return (
+                  <Link 
+                    to={`${url}/${pokemon.name}`} 
+                    className={`${styles.link} ${index%2 !== 0 ? styles.right : ''} `} 
+                    key={index}>
+                    <PokemonCard name={pokemon.name} key={index} ref={lastCard} />
+                  </Link> 
+                )} else {
+                return(
+                  <Link 
+                    to={`${url}/${pokemon.name}`} 
+                    className={`${styles.link} ${index%2 !== 0 ? styles.right : ''} `} 
+                    key={index} 
+                    onClick={handleCardClick}>
+                    <PokemonCard name={pokemon.name} key={index} />
+                  </Link> 
+                )}
+            }))
+            : 
+            <h2>No match results</h2>
+          }
+        </div>
       </section>  
 
       <FilterForm formActive={formActive} toggleForm={toggleForm}/>

@@ -4,24 +4,39 @@ body {
 
 .container {
   height: fit-content;
-  width: 100%;
-  padding: 10rem 12.5rem 5rem 12.5rem; 
-  margin-top: 5rem;
+  max-width: 80%;
+  width: 80%;
+  padding: 7rem 0rem 5rem; 
 
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  position: relative;
+  margin: 5rem auto 0;
+  
+  position:  relative;
+
   transition: opacity ease-in .5s;
+  overflow: hidden;
 
   &.transition {
     opacity: 0;
+  }
+
+  .pokemonContainer {
+
+    height: fit-content;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    position: relative;
+    column-gap: 2rem;
   }
 }
 
 .link {
   text-decoration: none;
+
   width: fit-content;
+  max-width: 100%;
+
   margin-bottom: 4rem;
+
   transition: transform .5s ease; 
   opacity: 0;
   animation: fade-in .5s ease-in forwards;
@@ -97,13 +112,10 @@ body {
 }
 
 .filterBtnContainer {
-  position: absolute; 
-
-  top: 4rem; 
-  left: 12.5rem;
-
   height: 3rem;
   width: 3rem;
+
+  margin-bottom: 2rem;
 
   border-radius: 50%;
 
@@ -127,6 +139,8 @@ body {
   }
 } 
 
+/*--- animations ---*/
+
 @keyframes fade-in {
   0% {
     opacity: 0;
@@ -145,10 +159,22 @@ body {
   } 
 }
 
+/*--- resizing ---*/
+
 @media (max-width: 1080px) {
   .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    padding: 5rem 0rem 5rem;
+
+    .pokemonContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+}
+
+@media (max-width: 644px) {
+  .container {
+    padding: 3rem 0 5rem; 
   }
 }
