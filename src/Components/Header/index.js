@@ -24,7 +24,11 @@ function Header({clickFunction, color, hasBorder, bgColor, index, isShowing}) {
   }
 
   return(
-    <header className={`${styles.header} ${hasBorder ? styles.border : ''}`} style={{backgroundColor: bgColor, maxHeight: isShowing ? '5rem' : '0rem'}}>
+    <header className={`${styles.header} ${hasBorder ? styles.border : ''}`} style={{
+        backgroundColor: bgColor, 
+        maxHeight: isShowing ? '5rem' : '0rem', 
+        position: path.length >= 3 ? 'relative' : 'fixed'}}
+    >
       <Link to="/" >
         <h1 onClick={clickFunction ? clickFunction : null} style={{color: `${color}`, transform: isShowing ? 'translateY(0)' : 'translateY(-5rem)'}}>
           Pokedex

@@ -206,10 +206,10 @@ function PokemonPage() {
         <Loading scale="2.5"/>
       </div>
       ) : (
-      <div className={styles.wrapper}>
+      <div className={styles.wrapper}  style={{backgroundColor: Theme[types[0]]?.main}}>
         <Header color={`${types[0] === 'dark' ? "white" : ''}`} bgColor={Theme[types[0]]?.main} index={Number(id)} isShowing={true}/>
         
-        <section className={styles.container}  style={{backgroundColor: Theme[types[0]]?.main}}>
+        <section className={styles.container} >
           {/* General info container */}
           <div className={styles.headers}>
             <h2 className={styles.name}> {name} <i>{genera}</i></h2>
@@ -229,6 +229,8 @@ function PokemonPage() {
               <p>"{filterFlavorText(flavorText).flavor_text}" <i> - {filterFlavorText(flavorText).versionName}</i></p>
             </div>
 
+            <img className={styles.pokemon} src={imgUrl} alt="pokemon" />
+
             <table className={styles.subInfo}>
               <tbody>
                 <tr style={{backgroundColor: Theme[types[0]]?.secondary}}>
@@ -239,6 +241,7 @@ function PokemonPage() {
                   <th>Base Exp.</th>
                   <th>Growth Rate</th>
                 </tr>
+
                 <tr>
                   <td>{height}m</td>
                   <td>{weight}kg</td>
@@ -248,8 +251,8 @@ function PokemonPage() {
                   <td>{baseHappiness}</td>
                   <td>{baseExperience}</td>
                   <td>{growthRate}</td>
-                  
                 </tr>
+
                 <tr style={{backgroundColor: Theme[types[0]]?.secondary}}>
                   <th>Egg-Groups</th>
                   <th>Egg <br/> cycles</th>
@@ -257,6 +260,7 @@ function PokemonPage() {
                   <th>Habitat</th>
                   <th>Catch Rate</th>
                 </tr>
+
                 <tr>
                   <td>{eggGroups.map((e, index)=>{
                     return <p key={index}>{e}</p>
@@ -272,8 +276,6 @@ function PokemonPage() {
 
           {/* Specific info container */}
           <div className={styles.content}>
-            <img className={styles.pokemon} src={imgUrl} alt="pokemon" />
-
             <BsChevronLeft className={styles.prevPokemon} onClick={PrevPokemon}/>
             <BsChevronRight className={styles.nextPokemon} onClick={NextPokemon}/>
 

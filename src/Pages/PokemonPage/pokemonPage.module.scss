@@ -1,6 +1,8 @@
 .wrapper {
   overflow-y: hidden;
   z-index: 1;
+
+  height: 100vh;
 }
 
 .loadingWrapper {
@@ -16,12 +18,10 @@
 
 .container {
   width: 100%;
-  height: calc(100vh - 5rem);
-  position: relative;
+  height: fit-content;
 
   padding: 0rem 7.5rem 0rem; 
 
-  margin-top: 5rem;
 
   opacity: 0;
 
@@ -39,7 +39,7 @@
   height: 100%;
   
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 6rem 5rem 1fr;
   
   color: white;
@@ -48,6 +48,8 @@
     text-transform: capitalize;
     font-size: 3rem;
     margin-bottom: 1.5rem; 
+    grid-column-start: 1;
+    grid-column-end: 3; 
 
     i {
       margin-left: 1rem;
@@ -57,7 +59,7 @@
   }
 
   .id {
-    grid-column: 2;
+    grid-column: 3;
     grid-row: 1;
 
     justify-self: end;
@@ -70,6 +72,7 @@
   .types {
     display: flex;
     grid-column: 1;
+    grid-row: 2; 
     gap: 1.5rem; 
 
     p {
@@ -85,14 +88,21 @@
     }
   }
 
+  .damageRelations {
+    grid-column: 1; 
+    grid-row: 3; 
+
+    margin-bottom: 1rem;
+  }
+
   .flavourText {
-    max-width: 72.5%;
+    max-width: 100%;
     word-wrap: break-word;
 
     font-size: .85rem;
 
     display: flex;
-    grid-column: 2;
+    grid-column: 3;
     grid-row: 2;
 
     justify-self: end;
@@ -101,11 +111,11 @@
   }
 
   .subInfo {
-    grid-column: 2;
+    grid-column: 3;
     grid-row: 3;
 
     height: 18rem;
-    width: 72.5%;
+    width: 100%;
     font-size: .85rem;
     
 
@@ -122,39 +132,39 @@
       font-size: .9rem;
     }
   } 
+
+  .pokemon {
+    height: 400px;
+    width: 400px;
+
+    grid-column: 2;
+    grid-row: 2;
+    justify-self: center;
+  }
 }
 
 .content {
-  height: 50vh;
+  height: fit-content;
   width: 100%;
 
   background-color: transparent;
 
-  position: absolute; 
+  // position: absolute; 
+  //
+  // top: 95%; 
+  // left: 0;
+  // border-radius: 3rem 3rem 0 0;
 
-  top: 50%; 
-  left: 0;
-  border-radius: 3rem 3rem 0 0;
-  padding: 0 7.5rem 5rem 7.5rem;
+  position: relative;
+
 
   display: flex;
   justify-content: space-between;
 
-  .pokemon {
-    height: 350px;
-    width: 350px;
-
-    position: absolute;
-
-    top: -62.5%;
-    left: 50%; 
-
-    transform: translateX(-50%);
-  }
 
   .prevPokemon{
-    position: absolute;
-    top: -10%;
+    position: fixed;
+    top: 50vh;
     left: 0; 
 
     color: white;
@@ -165,9 +175,9 @@
   }
 
   .nextPokemon {
-    position: absolute;
-    top: -10%;
-    right: 0; 
+    position: fixed;
+    top: 50vh;
+    right: -10px; 
 
     color: #fff; 
 
@@ -244,5 +254,28 @@
   }
   100% {
     opacity: 1;
+  }
+}
+
+@media (max-width: 1800px) {
+  .wrapper {
+    overflow-y: scroll;
+
+    
+    &::-webkit-scrollbar {
+      background: transparent;
+      width: 10px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(0, 0, 0, 0.3);
+      border-radius: .5rem;
+    }
+  }
+  .content {
+    height: fit-content;
+    position: static;
+    padding: 0; 
+    align-items: flex-start;
+    margin-bottom: 2rem;
   }
 }
