@@ -6,8 +6,6 @@
   background-color: white;
   border-radius: 2rem;
 
-  align-self: flex-end;
-
   .statsTable {
     text-align: left;
 
@@ -109,5 +107,11 @@
 
   100%{
     width: var(--stat-bar-width-5);
+  }
+}
+
+@media (max-width: 1300px) {
+  .stats {
+    width: 100%;
   }
 }

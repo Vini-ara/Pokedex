@@ -279,3 +279,58 @@
     margin-bottom: 2rem;
   }
 }
+
+@media (max-width: 1440px) {
+  .headers {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 6rem 5rem 1fr;
+
+    .name {
+      grid-column: 1;
+    }
+
+    .id {
+      grid-column: 2;
+    }
+
+    .damageRelations {
+      grid-row: 4; 
+      grid-column-start: 1; 
+      grid-column-end: 3;
+    }
+
+    .pokemon {
+      grid-column: 1;
+      grid-row: 3;
+      height: 300px;
+      width: 300px;
+    }
+    
+    .subInfo {
+      grid-column: 2;
+    }
+
+    .flavourText {
+      grid-column: 2;
+    }
+
+    .id {
+      grid-column: 2;
+    }
+  }
+}
+
+@media (max-width: 1300px) {
+  .content {
+    flex-direction: column;
+    gap: 1rem;
+    
+    align-items: center;
+    
+    .evolutionChain {
+      align-self: center;
+
+      width: 100%;
+    }
+  }
+}

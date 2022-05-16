@@ -1,6 +1,5 @@
 import { Route, Switch, useLocation} from 'react-router-dom';
 
-import "./styles/app.scss";
 import Home from "./Pages/Home";
 import Pokedex from "./Pages/Pokedex";
 import PokemonPage from './Pages/PokemonPage';
