@@ -3,7 +3,6 @@ import styles from "./styles.module.scss";
 
 import { BsArrowRight, BsX } from "react-icons/bs";
 import Theme from "../../Themes/TypesThemes/TypesThemes";
-import { Link } from "react-router-dom";
 
 function EvolutionChainModal({nodes, toggle, active, evolutions, isComplex}) {
   const [columns, setColumns] = useState(4)
@@ -22,6 +21,7 @@ function EvolutionChainModal({nodes, toggle, active, evolutions, isComplex}) {
         <div className={styles.closeBtn}>
           <BsX color="white" size="3rem" onClick={toggle}/>
         </div>
+
         <div className={`${styles.modal} ${isComplex ? '' : styles.simple}`} style={{
               gridTemplateColumns: `repeat(${evolutions}, 1fr)`,
               color: nodes[0][0]?.species.types[0] === "dark" ? "white" : "black"
@@ -29,11 +29,12 @@ function EvolutionChainModal({nodes, toggle, active, evolutions, isComplex}) {
         >
           <div className={styles.chainNode} style={{display: "flex", justifyContent: "center"}}>
             <div className={styles.card} style={{backgroundColor: Theme[nodes[0][0]?.species.types[0]]?.main}}>
-              <Link to={`/pokedex/${nodes[0][0]?.species?.name}`}>
-                <img src={nodes[0][0]?.species?.img} alt={nodes[0][0]?.species?.name} style={{background: Theme[nodes[0][0]?.species.types[0]]?.secondary}}/>
-              </Link>
+              <img src={nodes[0][0]?.species?.img} alt={nodes[0][0]?.species?.name} style={{background: Theme[nodes[0][0]?.species.types[0]]?.secondary}}/>
+
               <span>#{nodes[0][0]?.species?.id}</span>
+
               <p className={styles.name}>{nodes[0][0]?.species?.name}</p>
+
               <div className={styles.types}>
               {nodes[0][0]?.species?.types?.map((type, index) =>{
                 return <p style={{backgroundColor: Theme[type]?.secondary}} key={index}>{type}</p>
@@ -41,8 +42,10 @@ function EvolutionChainModal({nodes, toggle, active, evolutions, isComplex}) {
             </div>
           </div>
 
-          <div className={`${styles.chainNode} ${threeRows ? styles.threeRows : ''}`} 
-            style={!columns ? {
+          <div 
+            className={`${styles.chainNode} ${threeRows ? styles.threeRows : ''}`} 
+            style={!columns ? 
+              {
                 gridTemplateColumns: "1fr",
                 gridTemplateRows: `repeat(${nodes[1]?.length}, minmax(0, 15.25rem))`
               } : {
@@ -52,23 +55,29 @@ function EvolutionChainModal({nodes, toggle, active, evolutions, isComplex}) {
             <div className={styles.arrow}>
               <BsArrowRight /> 
             </div>
+
             {nodes[1]?.map((e, index) => (
-              <div className={styles.card}  
-                style={{
-                  background: Theme[e.species.types[0]]?.main, 
-                  color: `${e.species.types[0] === "dark" ? "white" : "black"}`,
+              <div 
+                className={styles.card}  
+                style={
+                  {
+                    background: Theme[e.species.types[0]]?.main, 
+                    color: `${e.species.types[0] === "dark" ? "white" : "black"}`,
                 }} 
-              key={index}>
-                <Link to={`/pokedex/${e?.species?.name}`}>
-                  <img src={e?.species?.img} alt={e?.species?.name} style={{background: Theme[e.species.types[0]]?.secondary}}/>
-                </Link>
+                key={index}
+              >
+                <img src={e?.species?.img} alt={e?.species?.name} style={{background: Theme[e.species.types[0]]?.secondary}}/>
+
                 <span>#{e?.species?.id}</span>
+                
                 <p className={styles.name}>{e?.species?.name}</p>
+
                 <div className={styles.types}>
                   {e?.species?.types?.map((type, index) =>{
                     return <p style={{background: Theme[type]?.secondary}} key={index}>{type}</p>
                   })}
                 </div>
+
                 <div className={styles.evolutionInfo}>
                   <p>trigger: {e.evolution_details.trigger}</p>
                   {Object.keys(e.evolution_details).map((a, index) => (
@@ -82,34 +91,43 @@ function EvolutionChainModal({nodes, toggle, active, evolutions, isComplex}) {
             ))}
           </div>
 
-
           {evolutions > 2 && 
-            <div className={styles.chainNode} style={{
+            <div 
+              className={styles.chainNode} 
+              style={{
                 gridTemplateColumns: "1fr"
-              }}>
-
+              }}
+            >
               {nodes[2]?.map(e => {
                 return e.map((a, index) => (
                   <div className={styles.thirdNode} key={index}>
                     <div className={styles.arrow}>
                       <BsArrowRight /> 
                     </div>
-                    <div className={styles.card}  style={
-                      {background: Theme[a.species.types[0]]?.main, 
-                      color: `${a.species.types[0] === "dark" ? "white" : "black"}`}
-                    } 
-                    key={index}>
-                      <Link to={`/pokedex/${a?.species?.name}`}>
-                        <img src={a?.species?.img} alt={a?.species?.name} style={{background: Theme[a.species.types[0]]?.secondary}}/>
-                      </Link>
+
+                    <div 
+                      className={styles.card}  
+                      style={
+                        {
+                          background: Theme[a.species.types[0]]?.main, 
+                          color: `${a.species.types[0] === "dark" ? "white" : "black"}`
+                        }} 
+                      key={index}
+                    >
+                      <img src={a?.species?.img} alt={a?.species?.name} style={{background: Theme[a.species.types[0]]?.secondary}}/>
+
                       <span>#{a?.species?.id}</span>
+
                       <p className={styles.name}>{a?.species?.name}</p>
+
                       <div className={styles.types}>
                       {a?.species?.types?.map((type, index) =>{
                         return <p style={{backgroundColor: Theme[type]?.secondary}} key={index}>{type}</p>
                       })}</div>
+
                       <div className={styles.evolutionInfo}>
                         <p>trigger: {a.evolution_details.trigger}</p>
+
                         {Object.keys(a.evolution_details).map((j, index) => (
                           j !== "trigger" &&
                           <p key={index} style={!index % 2 ? {background: Theme[a.species.types[0]]?.secondary} : null}>
@@ -121,9 +139,7 @@ function EvolutionChainModal({nodes, toggle, active, evolutions, isComplex}) {
                   </div>
                 ))}
               )}
-
           </div>}
-
         </div>
       </section>
     </>

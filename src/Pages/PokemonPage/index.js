@@ -54,6 +54,12 @@ function PokemonPage() {
 
   const PokemonUrl = `https://pokeapi.co/api/v2/pokemon/${pokemon}/`
   
+  //cleaning states
+  useEffect(() => {
+    setEvolutionModal(false) 
+    console.log('heloo')
+  }, [])
+  
   useEffect(()=>{
     setLoading(true)
 
