@@ -1,4 +1,3 @@
-
 .toggleOverlay {
   position: absolute;
   top: 0; 
@@ -86,6 +85,43 @@
       transform: translateX(-50%); 
       width: 2.5rem;
       height: 3rem;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .chainNode {
+    img {
+      width: 50px; 
+      height: 50px;
+    }
+    
+    span {
+      font-size: .75rem;
+    }
+
+    p {
+      font-size: .75rem;
+    }
+
+    .types {
+      p {
+        padding: 0.25rem .5rem;
+        border-radius: .75rem;
+
+        &:last-child {
+          margin-left: .25rem; 
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 375px) {
+  .chainNode {
+    .types {
+      display: none;
+      visibility: hidden;
     }
   }
 }

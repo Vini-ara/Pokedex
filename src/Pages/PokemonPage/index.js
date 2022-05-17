@@ -54,12 +54,6 @@ function PokemonPage() {
 
   const PokemonUrl = `https://pokeapi.co/api/v2/pokemon/${pokemon}/`
   
-  //cleaning states
-  useEffect(() => {
-    setEvolutionModal(false) 
-    console.log('heloo')
-  }, [])
-  
   useEffect(()=>{
     setLoading(true)
 
@@ -218,8 +212,10 @@ function PokemonPage() {
         <section className={styles.container} >
           {/* General info container */}
           <div className={styles.headers}>
-            <h2 className={styles.name}> {name} <i>{genera}</i></h2>
-            <span className={styles.id}>#{id}</span>
+            <div className={styles.name}>
+              <h2> {name} <i>{genera}</i></h2>
+              <span className={styles.id}>#{id}</span>
+            </div>
 
             <div className={styles.types}>
               {types.map((type, index)=>{
@@ -227,15 +223,11 @@ function PokemonPage() {
               })}
             </div>
 
-            <div className={styles.damageRelations}>
-              <DamageRelations types={types} handleTypeClick={handleTypeClick}/>
-            </div>
+            <img className={styles.pokemon} src={imgUrl} alt="pokemon" />
 
             <div className={styles.flavourText}>
               <p>"{filterFlavorText(flavorText).flavor_text}" <i> - {filterFlavorText(flavorText).versionName}</i></p>
             </div>
-
-            <img className={styles.pokemon} src={imgUrl} alt="pokemon" />
 
             <table className={styles.subInfo}>
               <tbody>
@@ -278,6 +270,10 @@ function PokemonPage() {
                 </tr>
               </tbody>
             </table>
+
+            <div className={styles.damageRelations}>
+              <DamageRelations types={types} handleTypeClick={handleTypeClick}/>
+            </div>
           </div>
 
           {/* Specific info container */}

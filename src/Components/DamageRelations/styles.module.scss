@@ -52,3 +52,25 @@
       }
   }
 }
+
+@media (max-width: 767px) {
+  .wrapper {
+    .relation {
+      .type {
+        .typeCard {
+          p {
+            padding: 0.25rem .5rem;
+            font-size: .8rem;
+            border-radius: .75rem;
+          }
+
+          span {
+            padding-top: .1rem;
+            margin-left: -1.75rem;
+            font-size: .8rem;
+          }
+        }
+      }
+    }
+  }
+}
