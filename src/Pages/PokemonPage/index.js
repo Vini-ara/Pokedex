@@ -154,7 +154,7 @@ function PokemonPage() {
     if(typeFilters[0]) {
       for(let [i, {name: n}] of pokemonList.entries()) {
         if(name === n) {
-          if(i === pokemonList.length - 1) return
+          if(i === pokemonList.length - 1 || pokemonList[i + i] === undefined) return
 
           return history.push(`/pokedex/${pokemonList[i + 1]?.name}`)
         }
@@ -166,10 +166,10 @@ function PokemonPage() {
         const ratio = id / 20 + 1
         const list = await redoList(ratio)
 
-        return history.push(`/pokedex/${list[Number(id)]?.name}`)
+        if(list[Number(id)] !== undefined) return history.push(`/pokedex/${list[Number(id)]?.name}`)
       }
 
-      history.push(`/pokedex/${pokemonList[Number(id)]?.name}`)
+      if(pokemonList[Number(id)] !== undefined) return history.push(`/pokedex/${pokemonList[Number(id)]?.name}`)
     }
   }
 
@@ -177,7 +177,7 @@ function PokemonPage() {
     if(typeFilters[0]) {
       for(let [i, {name: n}] of pokemonList.entries()) {
         if(name === n) {
-          if(i === 0) return
+          if(i === 0 || pokemonList[i - 1] === undefined) return
 
           return history.push(`/pokedex/${pokemonList[i - 1]?.name}`)
         }
@@ -189,10 +189,10 @@ function PokemonPage() {
         const ratio = id / 20 + 1
         const list = await redoList(ratio)
 
-        return history.push(`/pokedex/${list[Number(id) - 1 >= 0 ? Number(id) - 1 : 0]?.name}`)
+        if(list[Number(id)] !== undefined) return history.push(`/pokedex/${list[Number(id) - 1 >= 0 ? Number(id) - 1 : 0]?.name}`)
       }
 
-      history.push(`/pokedex/${pokemonList[Number(id) - 2 >= 0 ? Number(id) - 2 : 0]?.name}`)
+      if(pokemonList[Number(id) - 2] !== undefined && pokemonList[0] !== undefined) return history.push(`/pokedex/${pokemonList[Number(id) - 2 >= 0 ? Number(id) - 2 : 0]?.name}`)
     }
   }
 
