@@ -1,70 +1,55 @@
-# Getting Started with Create React App
+# Pokedex 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a pokedex app to see all the basic info about pokemon!
 
-## Available Scripts
+## Overview 
 
-In the project directory, you can run:
+This app was made as a side project to develop my programing skills and to create something fun and useful. It gives the list of all pokemons known with some filters to be able to search better. 
 
-### `yarn start`
+It gives some useful information about each pokemon, like it´s evolution chain, weakness, base stats and some general info.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Screenshot
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
++ Home 
 
-### `yarn test`
+![](./homeScreenshot.jpg)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
++ List 
 
-### `yarn build`
+![](./listScreenshot.jpg)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
++ Pokemon 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+![](./pokemonScreenshot.jpg)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Links
 
-### `yarn eject`
+- Live site URL: [https://pokedexer.netlify.app](https://pokedexer.netlify.app)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Building Processs
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+I used create react app to start the project, and then started creating the home page, initialy I had a plan to add some cool 3d objects to interact with in the home page, turns out it didn't work as planed lol. So I sticked with the idea of adding just one simple button but with a rather nice animation. 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Then I started creating the pokemon list page fetching data from the [poke APi](https://pokeapi.co), I added a pokeBall background that spins as you scroll down, and created one card for each pokemon. When you click the card you are redirected to the pokemon page, with all the basic info of that pokemon. 
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Later on I kept adding some aditional features, like an filter to the pokemon list, where you can filter the pokemon by type and generation, and a modal for the evolution chain that displays the evolution triggers.
 
-## Learn More
+### Built with
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- [React](https://reactjs.org)
+- [Sass](https://sass-lang.com/guide)
+- [React-icons](https://react-icons.github.io/react-icons/)
+- [Poke Api](https://pokeapi.co)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Main Concepts I learned
 
-### Code Splitting
+- React Router
+- Asynchronous JS - promises
+- Creating React custom Hooks
+- React Forward Ref
+- Axios
+- CSS Animations
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Improvements to be made 
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+There is still a lot to be done in this project. I would really like to make it more performatic, as it is quite slow sometimes, add some kind of serchBox to find pokemon by name, add habilities and TMs to the pokemon page, create an backend to be able to generate users where this users could have some kind of favourite pokemon list and could create a team which they can see the type weakness of the hole team.
