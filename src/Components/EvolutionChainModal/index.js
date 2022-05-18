@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
+import { useWindowDimensions} from '../../Hooks/useWindowDimensions';
 
 import { BsArrowRight, BsX } from "react-icons/bs";
 import Theme from "../../Themes/TypesThemes/TypesThemes";
@@ -7,6 +8,8 @@ import Theme from "../../Themes/TypesThemes/TypesThemes";
 function EvolutionChainModal({nodes, toggle, active, evolutions, isComplex}) {
   const [columns, setColumns] = useState(4)
   const [threeRows, setThreeRows] = useState(0)
+
+  const { width } = useWindowDimensions();  
 
   useEffect(() => {
     if(nodes[0][0]?.evolves_to <= 3) setColumns(0)
@@ -22,9 +25,17 @@ function EvolutionChainModal({nodes, toggle, active, evolutions, isComplex}) {
           <BsX color="white" size="3rem" onClick={toggle}/>
         </div>
 
-        <div className={`${styles.modal} ${isComplex ? '' : styles.simple}`} style={{
+        <div className={`${styles.modal} ${isComplex ? '' : styles.simple}`} style={
+            width > 767 ? {
               gridTemplateColumns: `repeat(${evolutions}, 1fr)`,
               color: nodes[0][0]?.species.types[0] === "dark" ? "white" : "black"
+            } : {
+              padding: "4rem 0 3rem",
+              gridTemplateRows: `repeat(${evolutions}, 1fr)`,
+              color: nodes[0][0]?.species.types[0] === "dark" ? "white" : "black",
+              minHeight: "80vh",
+              gap: "4rem",
+              overflowY: "scroll"
             }}
         >
           <div className={styles.chainNode} style={{display: "flex", justifyContent: "center"}}>
@@ -46,8 +57,8 @@ function EvolutionChainModal({nodes, toggle, active, evolutions, isComplex}) {
             className={`${styles.chainNode} ${threeRows ? styles.threeRows : ''}`} 
             style={!columns ? 
               {
-                gridTemplateColumns: "1fr",
-                gridTemplateRows: `repeat(${nodes[1]?.length}, minmax(0, 15.25rem))`
+                gridTemplateColumns: width > 767 ? "1fr" : `repeat(${nodes[1]?.length}, minmax(0,1fr))`,
+                gridTemplateRows: width > 767 ? `repeat(${nodes[1]?.length}, minmax(0, 15.25rem))` : `1fr`
               } : {
                 gridTemplateColumns: `repeat(${columns}, 1fr)`,
               }}
